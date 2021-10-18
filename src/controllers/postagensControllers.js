@@ -13,6 +13,18 @@ async function criarPostagem(req, res, next) {
     }
 }
 
+async function deletePost(req, res, next) {
+    try {        
+        const deletar = await postagensServices.deletePost(res.locals.userId, req.params.id)
+
+        res.status(201).json();
+
+    } catch (err) {
+        console.log(err.message);
+        next(err);
+    }
+}
+
 async function getAll(req, res, next) {    
     try {
         const postagens = await postagensServices.getPostagem();
@@ -74,6 +86,26 @@ async function getComentariosPostagem(req, res, next) {
     }
 }
 
+async function deletePostagem(req, res, next) {
+    try {
+        const postagemDeleteada = await postagensServices.deletePost(req.params.id);
+        res.json(postagemDeletada);
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+}
+
+async function deleteComentario(req, res, next) {
+    try {
+        const comentarioDeletado = await comentariosServices.deleteComent(req.params.id);
+        res.json(comentarioDeletado);
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+}
+
 module.exports = {
     criarPostagem,
     getAll,
@@ -81,5 +113,8 @@ module.exports = {
     createComentario,
     getComentariosPostagem,
     createCurtida,
-    getAllCurtidas
+    getAllCurtidas,
+    deletePost,
+    deletePostagem,
+    deleteComentario
 }
