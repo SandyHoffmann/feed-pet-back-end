@@ -16,6 +16,18 @@ async function createPostagem(id, postagem) {
     return postagemCriada;
 }
 
+async function deletePost(id_user,id_post) {
+    const postagem = await Postagem.findOne({ where: { id:id_post } });
+    if (!postagem) throw createError(404, "Postagem não encontrada!");    
+    if (postagem.user_id == id_user){
+        await postagem.destroy();
+        return "deu bom"
+    } else{
+        throw createError(403, "Não permitido deletar post de outro usuário!"); 
+    }
+
+}
+
 async function getPostagem() {    
     let postagens = await Postagem.findAll(
         {
@@ -36,8 +48,15 @@ async function acharUsuarioPostagem(id) {
     return await donoPostagem;
 }
 
+async function deletePost(id) {
+    return await Postagem.destroy({
+        where: { id:id} 
+      });
+}
+
 module.exports = {
     createPostagem,
     getPostagem,
-    acharUsuarioPostagem
+    acharUsuarioPostagem,
+    deletePost
 }
