@@ -87,7 +87,7 @@ async function loginGoogleUser(token) {
                 cargo: "usuario"
             }
         });
-
+        console.log(user)
         const accessToken = criarAccessToken(user.id);
         const refreshToken = await criarRefreshToken(user.id);
 
