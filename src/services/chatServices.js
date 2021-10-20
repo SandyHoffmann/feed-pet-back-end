@@ -3,9 +3,7 @@ const { QueryTypes } = require("sequelize");
 const { Chat, Usuario, Mensagem, sequelize } = require("../models");
 
 async function addChat(id_usuario, parametros) {
-    console.log(parametros)
     const { nome, descricao, usuarios } = parametros
-    console.log(id_usuario)
     usuarios.push(id_usuario)
 
     let usuariosChat = await Usuario.findAll({ where: { id: usuarios } })
@@ -72,7 +70,6 @@ async function findChats(id_usuario) {
         replacements: [id_usuario],
         type:QueryTypes.SELECT
     })
-    console.log(chat.map(chats => {chats.id}))
     chatsDoUsuario = await Chat.findAll({where:{
                                         id: chat.map(chats => chats.id_chat)
                                     },
@@ -85,7 +82,6 @@ async function findChats(id_usuario) {
     let msg = ""
     for (let chat of chatsDoUsuario){
         msg = await chat.getMensagems()
-        console.log(msg[msg.length -1])
         mensagens.push(msg[msg.length -1])
     }
 

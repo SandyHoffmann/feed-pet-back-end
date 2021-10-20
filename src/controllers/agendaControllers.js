@@ -13,7 +13,6 @@ async function getAllAgenda(req, res, next) {
 async function getAnimalAgenda(req, res, next) {    
     try {
         const agenda = await agendasServices.mostrarAgendaEspecifica(req.params.id_animal);
-        console.log(agenda)
         res.json(agenda);
         
     } catch (err) {

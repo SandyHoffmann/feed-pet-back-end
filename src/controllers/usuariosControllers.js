@@ -13,7 +13,6 @@ async function deleteUser(req, res, next) {
 
 async function editUser(req, res, next) {
     try {
-        console.log(req.body)
         let avatar
         let key
         if (req.file){

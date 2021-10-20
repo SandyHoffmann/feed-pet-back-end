@@ -34,7 +34,6 @@ async function deleteAnimal(req, res, next) {
 
 async function editAnimal(req, res, next) {
     try {
-        console.log(req.body)
         let avatar
         let key
         if (req.file){
@@ -51,7 +50,6 @@ async function editAnimal(req, res, next) {
 }
 
 async function criarParaUsuario(req, res, next) {
-    console.log(req.body)
     try {        
         let animal = req.body
         let avatar = "https://feedpet.s3.amazonaws.com/dogdefault.jpg"
@@ -59,7 +57,6 @@ async function criarParaUsuario(req, res, next) {
             avatar = "https://feedpet.s3.amazonaws.com/catdefault.jpg"
         }
         let key
-        console.log(req.file)
         if (req.file){
             avatar = req.file.location
             key = req.file.key
