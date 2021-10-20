@@ -33,10 +33,8 @@ async function editarAlerta(id, alerta) {
 async function concluirAlerta(id_alerta,id_animal) {
     const alertaExiste = await Alerta.findOne({ where: { id:id_alerta } });
     if (!alertaExiste) throw createError(404, "Alerta não encontrado!");
-    console.log(alertaExiste.concluido)
     alertaExiste.concluido = 1
     await alertaExiste.save();
-    console.log(alertaExiste)
     const animal = await Animal.findOne({ where: { id:id_animal } });
     animal.status="Tem dono"
     await animal.save()

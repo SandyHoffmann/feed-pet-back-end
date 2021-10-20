@@ -43,11 +43,10 @@ async function editarUsuario(id, usuario,avatar,key) {
     const usuarioExiste = await Usuario.findOne({ where: { id:id } });
     if (!usuarioExiste) throw createError(404, "Usuário não encontrado!");
     let valores = Object.entries(usuario)
-    console.log(valores)
+
     for (let valor of valores){
         if (usuarioExiste[valor[0]] !== valor[1] && valor[1].length>0){
             usuarioExiste[valor[0]] = valor[1]
-            console.log(valor[1] + " " + usuarioExiste[valor[0]])
         }
     }
     if (avatar){
@@ -65,14 +64,12 @@ async function editarUsuario(id, usuario,avatar,key) {
 async function acharAnimaisUsuario(id) {
     const usuario = await Usuario.findOne({ where: { id:id } });
     if (!usuario) throw createError(404, "Usuário não encontrado!");
-    console.log(usuario)
     return await usuario.getAnimal();
 }
 
 async function acharPostagensUsuario(id) {
     const usuario = await Usuario.findOne({ where: { id:id } });
     if (!usuario) throw createError(404, "Usuário não encontrado!");
-    console.log(usuario)
     const postagens = await Postagem.findAll({ where: { user_id:id } });
     return postagens;
 }

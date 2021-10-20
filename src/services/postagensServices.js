@@ -2,9 +2,9 @@ const createError = require("http-errors");
 const { Usuario, Postagem } = require("../models");
 
 async function createPostagem(id, postagem) {
-    console.log(id)
+
     const usuario = await Usuario.findOne({ where: { id:id } });
-    console.log(usuario)
+
     if (!usuario) throw createError(404, "Usuário não encontrado!");    
 
     const { titulo, conteudo } = postagem;
