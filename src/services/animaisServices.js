@@ -38,7 +38,6 @@ async function createAnimalparaUsuario(id, novoAnimal,avatar,key) {
     await Agenda.create({
         id_animal:animal.id
     })
-    console.log(animal)
 
     return animal;
 }
@@ -47,20 +46,16 @@ async function editarAnimal(id, animal, avatar, key) {
     const animalExiste = await Animal.findOne({ where: { id:id },include:"usuario" });
     if (!animalExiste) throw createError(404, "Animal não encontrado!");
     let valores = Object.entries(animal)
-    console.log(valores)
     for (let valor of valores){
         if (animalExiste[valor[0]] !== valor[1] && valor[1].length>0){
             if (valor[0]==="raca"){
                 if (animalExiste.tipo_animal==="Gato"){
                     animalExiste.raca = valor[1][1]
-                    console.log(valor[1][1]+ " " + animalExiste[valor[0]])
                 } else{
                     animalExiste.raca = valor[1][0]
-                    console.log(valor[1][0] + " " + animalExiste[valor[0]])
                 }
             } else{
                 animalExiste[valor[0]] = valor[1]
-                console.log(valor[1] + " " + animalExiste[valor[0]])
             }   
         }
     }
@@ -72,15 +67,6 @@ async function editarAnimal(id, animal, avatar, key) {
     await animalExiste.save();
 
     return animalExiste
-        // animalExiste.nome = animal.nome?||
-    // animalExiste.raca = animal.raca
-    // animalExiste.sexo = animal.sexo
-    // animalExiste.cor = animal.cor
-    // animalExiste.porte = animal.porte
-    // animalExiste.status = animal.status
-    // animalExiste.idade = animal.idade
-    // animalExiste.avatar = animal.avatar
-
 }
 
 async function acharUsuariosAnimal(id) {

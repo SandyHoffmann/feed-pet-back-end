@@ -63,8 +63,6 @@ function criarAccessToken(sub, cargo) {
 async function loginGoogleUser(token) {
     const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
     const client = new OAuth2Client(CLIENT_ID);
-    console.log(CLIENT_ID)
-    console.log(token)
 
     try {
         const ticket = await client.verifyIdToken({
@@ -73,8 +71,6 @@ async function loginGoogleUser(token) {
         });
     
         const payload = ticket.getPayload();      
-        
-        console.log(payload);
 
         const [ user ] = await Usuario.findOrCreate({
             where: {
@@ -103,7 +99,7 @@ async function loginUserCredentials(userCredeentials) {
     const { email, password } = userCredeentials;
 
     const usuarioRegistrado = await Usuario.findOne({ where: { email } });    
-    console.log(usuarioRegistrado)
+
     if (!usuarioRegistrado) {
         throw new createHttpError(401, "E-mail ou senha inválidos.");
     }
